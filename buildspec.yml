@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t nc -f Dockerfile-production .
+      - docker build -t stanley-video-call-stream .
       - docker tag stanley-video-call-stream:latest 739451359836.dkr.ecr.us-east-1.amazonaws.com/stanley-video-call-stream:latest
   post_build:
     commands:

@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t nc -f Dockerfile-production .
+      - docker tag stanley-video-call-stream:latest 739451359836.dkr.ecr.us-east-1.amazonaws.com/stanley-video-call-stream:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 739451359836.dkr.ecr.us-east-1.amazonaws.com/stanley-video-call-stream:latest
+      - aws s3 sync s3://stanley-video-call-stream ./aws-build --region us-east-1
+artifacts:
+  files:
+    - '**/*'
+  base-directory: aws-build

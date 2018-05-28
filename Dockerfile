@@ -1,6 +1,6 @@
 FROM node:8-onbuild
 
-EXPOSE 80
+EXPOSE 8443
 
 # Install gem sass for  grunt-contrib-sass
 RUN apt-get update -qq && apt-get install -y build-essential

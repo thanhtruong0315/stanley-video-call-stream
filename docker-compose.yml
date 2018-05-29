@@ -1,0 +1,14 @@
+version: '2'
+services:
+  stanley-video-call-stream:
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: stanley-video-call-stream
+    ports:
+     - "3000:3000"
+     - "5858:5858"
+     - "35729:35729"
+    environment:
+     - NODE_ENV=development

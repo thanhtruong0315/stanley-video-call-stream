@@ -10,7 +10,7 @@ RUN gem install sass
 # Install MEAN.JS Prerequisites
 RUN npm install --quiet -g gulp bower yo mocha karma-cli pm2
 
-RUN mkdir -p /opt/stanley-video-call/public/lib
+RUN mkdir -p /opt/stanley-video-call
 WORKDIR /opt/stanley-video-call
 
 # Copies the local package.json file to the container

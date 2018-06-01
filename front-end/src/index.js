@@ -3,7 +3,7 @@
 var Video = require('twilio-video');
 var helpers = require('./helpers');
 var filterLocalVideo = helpers.filterLocalVideo;
-var filtered = document.querySelector('video#videoinputfiltered');
+var filtered = document.querySelector('video#videofiltered');
 
 var activeRoom;
 var previewTracks;
@@ -110,6 +110,7 @@ function roomJoined(room) {
     log(participant.identity + " added track: " + track.kind);
     var previewContainer = document.getElementById('remote-media');
     attachTracks([track], previewContainer);
+    filterLocalVideo(previewContainer.querySelector('video'), filtered, 'grayscale');
   });
 
   // When a Participant removes a Track, detach it from the DOM.
@@ -153,7 +154,6 @@ document.getElementById('button-preview').onclick = function() {
     if (!previewContainer.querySelector('video')) {
       attachTracks(tracks, previewContainer);
     }
-    filterLocalVideo(previewContainer.querySelector('video'), filtered, 'grayscale');
   }, function(error) {
     console.error('Unable to access local media', error);
     log('Unable to access Camera and Microphone');

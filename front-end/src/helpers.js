@@ -12,7 +12,7 @@ var VIDEO_HEIGHT = 240;
  * @returns {Promise<void>}
  */
 function displayLocalVideo(video) {
-  return Video.createLocalVideoTrack().then(function(localTrack) {
+  return Video.createLocalVideoTrack().then(function (localTrack) {
     localTrack.attach(video);
   });
 }
@@ -32,7 +32,13 @@ function filterLocalVideo(video, filtered, name) {
   function filterVideoFrame() {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    context.putImageData(filters[name](imageData), 0, 0);
+    
+    let dst = new cv.Mat();
+    // To distinguish the input and output, we graying the image.
+    // You can try different conversions.
+    cv.cvtColor(imageData, dst, cv.COLOR_RGBA2GRAY);
+
+    context.putImageData(dst, 0, 0);
     requestAnimationFrame(filterVideoFrame);
   }
 

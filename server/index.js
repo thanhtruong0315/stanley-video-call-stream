@@ -22,9 +22,11 @@ var app = express();
 // Set up the path for the quickstart.
 var quickstartPath = path.join(__dirname, '../front-end/public');
 var build = path.join(__dirname, '../front-end/build');
+var data = path.join(__dirname, '../front-end/data');
 
 app.use('/stream', express.static(quickstartPath));
 app.use('/build', express.static(build));
+app.use('/data', express.static(data));
 
 /**
  * Default to the Quick Start application.
